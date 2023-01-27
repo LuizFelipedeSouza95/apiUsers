@@ -6,8 +6,8 @@ const PORT = process.env.PORT || '3000';
 const users = [
     {
         "id": 1,
-        "email" : "luizfelipedesouza94@gmail.com",
-        "senha" : "061730Abra?"
+        "email": "luizfelipedesouza94@gmail.com",
+        "senha": "061730Abra?"
     }
 ]
 
@@ -61,7 +61,7 @@ app.get("/verify", bodyParser, async function (req, res) {
 
 app.get("/createUsers", bodyParser, async function (req, res) {
 
-    const id = users.length+1
+    const id = users.length + 1
     const { email, senha } = req.body
     const InsertUsers = {
         id,
@@ -79,6 +79,15 @@ app.get("/createUsers", bodyParser, async function (req, res) {
 });
 
 app.get("/searchAll", bodyParser, async function (req, res) {
+    return users.length > 0
+        ? res.status(200).json(users)
+        : res.status(204).send();
+});
+
+app.get("/deleteUser", bodyParser, async function (req, res) {
+    const { id } = req.body
+    var delUser = users.findIndex(obj => obj.id == id);
+    users.splice(delUser, 1);
     return users.length > 0
         ? res.status(200).json(users)
         : res.status(204).send();
