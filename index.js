@@ -59,7 +59,7 @@ app.get("/verify", bodyParser, async function (req, res) {
 
 })
 
-app.get("/createUsers", bodyParser, async function (req, res) {
+app.post("/createUsers", bodyParser, async function (req, res) {
 
     const id = users.length + 1
     const { email, senha } = req.body
@@ -84,15 +84,15 @@ app.get("/searchAll", bodyParser, async function (req, res) {
         : res.status(204).send();
 });
 
-app.get("/deleteUser", bodyParser, async function (req, res) {
+app.delete("/deleteUser", bodyParser, async function (req, res) {
     const { id } = req.body
     var delUser = users.findIndex(obj => obj.id == id);
     users.splice(delUser, 1);
     return users.length > 0
-        ? res.status(200).json(users)
+        ? res.status(200).json("Usuario Deletado!")
         : res.status(204).send();
 });
 
 app.listen(PORT, () => {
-    console.log(`Online server at the door ${PORT} ctrl click to access --> http://localhost:${PORT}/`)
+    console.log(`⚡️Server is running at ${PORT} ctrl click to access --> http://localhost:${PORT}/`)
 })
